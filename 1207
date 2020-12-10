@@ -1,0 +1,143 @@
+package shootGame;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class ShootGame {
+	JFrame frame;
+	int width = 800;
+	int height = 600;
+//	Enemy enemy = new Enemy();
+	ArrayList<Enemy> enemy = new ArrayList<Enemy>();
+	ArrayList<Shot> shot = new ArrayList<Shot>();
+
+//	Character hero = new Character(5, 5);
+
+	int speed = 10;
+
+	int x = 50;
+	int y = 250;
+
+	int xDirection = 0;
+	int yDirection = 0;
+
+	boolean left = false, right = false, up = false, down = false, attack = false;
+
+	public ShootGame() {
+		frame = new JFrame("슈팅게임");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(width, height);
+
+		frame.getContentPane().add(new GamePanel());
+		frame.addKeyListener(new MyKeyListener());
+
+
+		frame.setVisible(true);
+
+	}
+
+	public void play() {
+		
+		while (true) {			
+			x += xDirection;
+			y += yDirection;
+			
+			
+
+			frame.repaint();
+
+			try {
+				Thread.sleep(speed);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+		}
+	} // play
+	
+	
+
+	private class GamePanel extends JPanel {
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+
+			g.setColor(Color.pink);
+			g.fillRect(x, y, 20, 20);
+			
+			
+		}
+	} //JPanel
+
+	private class MyKeyListener implements KeyListener {
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			switch (e.getKeyCode()) {
+			case KeyEvent.VK_UP:
+				yDirection = -2;
+				xDirection = 0;
+				break;
+			case KeyEvent.VK_DOWN:
+				yDirection = 2;
+				xDirection = 0;
+				break;
+			case KeyEvent.VK_LEFT:
+				xDirection = -2;
+				yDirection = 0;
+				break;
+			case KeyEvent.VK_RIGHT:
+				xDirection = 2;
+				yDirection = 0;
+				break;
+			case KeyEvent.VK_SPACE:
+				attack = true;
+				break;
+			}
+
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			switch (e.getKeyCode()) {
+			case KeyEvent.VK_UP:
+				yDirection = 0;
+				xDirection = 0;
+				break;
+			case KeyEvent.VK_DOWN:
+				yDirection = 0;
+				xDirection = 0;
+				break;
+			case KeyEvent.VK_LEFT:
+				xDirection = 0;
+				yDirection = 0;
+				break;
+			case KeyEvent.VK_RIGHT:
+				xDirection = 0;
+				yDirection = 0;
+				break;
+			case KeyEvent.VK_SPACE:
+				attack = false;
+				break;
+			}
+
+		}
+
+	} // key
+
+	
+}
