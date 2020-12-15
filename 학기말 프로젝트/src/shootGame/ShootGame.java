@@ -1,6 +1,7 @@
 package shootGame;
 
-import java.awt.Canvas; 
+import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Polygon;
@@ -16,6 +17,7 @@ public class ShootGame {
 	JFrame frame;
 	int width = 800;
 	int height = 600;
+	int score;
 	CT canvas = new CT();
 
 	Shot shot;
@@ -24,8 +26,6 @@ public class ShootGame {
 	ArrayList<Shot> shots = new ArrayList<Shot>();
 	
 	Image dog, bond, slime;
-
-//	Character hero = new Character(5, 5);
 
 	int speed = 10;
 
@@ -117,6 +117,7 @@ public class ShootGame {
 				if (p.intersects((double) e.x, (double) e.y, (double) e.width, (double) e.height)) {
 					shots.remove(i);
 					enemys.remove(j);
+					score++;
 				}
 
 			}
@@ -158,9 +159,16 @@ public class ShootGame {
 			if (end == true) {
 				g.drawString("GAME OVER", 320, 250);
 			}
+			
+			g.setColor(Color.black);
+			g.drawString("Score : "+score,720,30);
 
 		}
 	} // JPanel
+	
+//	public void score() {
+//		this.score=score;
+//	}
 
 	private class MyKeyListener implements KeyListener {
 
